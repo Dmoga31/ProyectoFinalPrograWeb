@@ -1,12 +1,13 @@
-const express = require("express");
-const Conference = require("../models/conference.model.js");
+const express = require('express');
 const router = express.Router();
-const  {getConferences, getConferenceById, createConference, updateConference, deleteConference}= require("../controllers/conference.controller.js")
+const ConferenceController = require('../controllers/conference.controller'); // Importa el controlador de Conference
+const verifyToken = require('../middleware/verifyToken.middleware.js'); // Importa el controlador de Conference
 
-router.get('/', getConferences);
-router.get('/:id', getConferenceById)
-router.post('/', createConference)
-router.put('/:id', updateConference)
-router.delete('/:id', deleteConference)
+// Rutas para conferencias
+router.post('/', verifyToken, ConferenceController.createConference); // Crear conferencia
+router.get('/', verifyToken, ConferenceController.getConferences); // Obtener todas las conferencias
+router.get('/:id', verifyToken, ConferenceController.getConferenceById); // Obtener conferencia por ID
+router.put('/:id', verifyToken, ConferenceController.updateConference); // Actualizar conferencia
+router.delete('/:id', verifyToken, ConferenceController.deleteConference); // Eliminar conferencia
 
 module.exports = router;

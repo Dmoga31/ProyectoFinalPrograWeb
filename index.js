@@ -1,29 +1,36 @@
+require('dotenv').config(); // Esto carga las variables de entorno desde el archivo .env
+
 const express = require('express');
 const mongoose = require( 'mongoose');
-const Conference = require('./models/conference.model.js')
-const conferenceRoute = require("./routes/conference.route.js")
 const app = express();
+const userRoutes = require('./routes/user.route.js');
+const conferenceRoutes = require('./routes/conference.route.js');
+const placeRoutes = require('./routes/place.route.js');
 
-
-//Middleware
+// Middleware para manejar JSON
 app.use(express.json());
 
-//Routes
-app.use("/api/conferences", conferenceRoute);
+// Usar las rutas para 'user' y 'conference'
+app.use('/api/users', userRoutes);
+app.use('/api/conferences', conferenceRoutes);
+app.use('/api/places', placeRoutes);  // Rutas para lugares
 
 
 app.get('/', (req, res) => {
     res.send('Hello Diego');
 });
 
-mongoose.connect('mongodb://localhost:27017/')
+const mongoUri = process.env.MONGO_URI;
+mongoose.connect(mongoUri)
 .then(()=> {
     console.log("Connected to database");  
     app.listen(3000, () => {
         console.log('Server is running on port 3000');
+        console.log("JWT_SECRET:", process.env.JWT_SECRET);
     });
 })
-.catch(() => {
+.catch((e) => {
+    console.log(e);
     console.log("Connection failure");
 });
 
