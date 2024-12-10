@@ -4,7 +4,10 @@ const PlaceClass = require('../classes/Place.js');
 class ConferenceController {
     static async getConferences(req, res) {
         try {
-            const conferences = await ConferenceClass.getConferences(req.user._id);
+            const userId = req.user._id; // Obtenido del middleware `verifyToken`
+            const isAdmin = req.user.IsAdmin; 
+            console.log("Is admin? -> ", isAdmin);
+            const conferences = await ConferenceClass.getConferences(userId, isAdmin);
             res.status(200).json(conferences);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -13,15 +16,23 @@ class ConferenceController {
 
     static async getConferenceById(req, res) {
         try {
-            const conference = await ConferenceClass.getConferenceById(req.params.id, req.user._id);
+            const { id } = req.params; // ID de la conferencia desde los parámetros
+            const userId = req.user._id; // ID del usuario autenticado
+            const isAdmin = req.user.IsAdmin; // Indicador de si es administrador
+    
+            // Obtener la conferencia
+            const conference = await ConferenceClass.getConferenceById(id, userId, isAdmin);
+    
             if (!conference) {
                 return res.status(404).json({ message: 'Conference not found or not authorized' });
             }
+    
             res.status(200).json(conference);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     }
+    
 
     static async createConference(req, res) {
         try {
@@ -56,23 +67,39 @@ class ConferenceController {
 
     static async updateConference(req, res) {
         try {
-            const conference = await ConferenceClass.updateConference(req.params.id, req.body, req.user._id);
+            const { id } = req.params;
+            const data = req.body;
+            const userId = req.user._id;
+            const isAdmin = req.user.IsAdmin; // Indicador de si es administrador
+    
+            // Actualizar la conferencia
+            const conference = await ConferenceClass.updateConference(id, data, userId, isAdmin);
+    
             if (!conference) {
                 return res.status(404).json({ message: 'Conference not found or not authorized' });
             }
+    
             res.status(200).json(conference);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     }
+    
 
     static async deleteConference(req, res) {
         try {
-            const conference = await ConferenceClass.deleteConference(req.params.id, req.user._id);
+            const { id } = req.params;
+            const userId = req.user._id;
+            const isAdmin = req.user.IsAdmin; // Indicador de si es administrador
+    
+            // Eliminar la conferencia
+            const conference = await ConferenceClass.deleteConference(id, userId, isAdmin);
+    
             if (!conference) {
                 return res.status(404).json({ message: 'Conference not found or not authorized' });
             }
-            res.status(200).json({ message: 'Conference deleted successfully' });
+    
+            res.status(200).json({ message: 'Conference deleted successfully', conference });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

@@ -34,14 +34,14 @@ static async getUserByEmail(Email) {
     // Crear un nuevo usuario
     static async createUser(data) {
         try {
-            const { FirstName, LastName, Email, Password } = data;
+            const { FirstName, LastName, Email, Password, IsAdmin } = data;
             const existingUser = await User.findOne({ Email });
 
             if (existingUser) {
                 throw new Error('User already exists');
             }
 
-            const user = new User({ FirstName, LastName, Email, Password });
+            const user = new User({ FirstName, LastName, Email, Password, IsAdmin });
             return await user.save();
         } catch (error) {
             throw new Error(error.message);
@@ -51,6 +51,12 @@ static async getUserByEmail(Email) {
     // Actualizar un usuario
     static async updateUser(id, data) {
         try {
+
+            if (data.Password) {
+                const salt = await bcrypt.genSalt(10); // Generar el salt
+                data.Password = await bcrypt.hash(data.Password, salt); // Hashear la contraseña
+            }
+            
             return await User.findByIdAndUpdate(id, data, { new: true, runValidators: true });
         } catch (error) {
             throw new Error(error.message);

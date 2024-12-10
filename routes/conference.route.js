@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const ConferenceController = require('../controllers/conference.controller'); // Importa el controlador de Conference
-const verifyToken = require('../middleware/verifyToken.middleware.js'); // Importa el controlador de Conference
+const verifyToken = require('../middleware/verifyToken.middleware.js'); // Importa el middleware de verifytoken
+const verifyAdmin = require('../middleware/verifyAdmin.middleware.js'); // Importa el middleware de verifyAdmin
 
 // Rutas para conferencias
 router.post('/', verifyToken, ConferenceController.createConference); // Crear conferencia

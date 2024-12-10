@@ -26,13 +26,13 @@ class PlaceController {
     }
 
     // Obtener un lugar por su nombre
-static async getPlaceByName(name) {
-    try {
-        return await Place.findOne({ NamePlace: name }); // Busca el primer lugar con el nombre dado
-    } catch (error) {
-        throw new Error(error.message);
-    }
-}
+    /* static async getPlaceByName(name) {
+        try {
+            return await Place.findOne({ NamePlace: name }); // Busca el primer lugar con el nombre dado
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    } */
 
     // Crear un nuevo lugar
     static async createPlace(req, res) {
