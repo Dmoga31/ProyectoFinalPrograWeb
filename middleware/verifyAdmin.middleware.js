@@ -1,4 +1,3 @@
-
 const verifyAdmin = async (req, res, next) => {
     try {
         // Asegúrate de que el usuario esté definido en `req.user`

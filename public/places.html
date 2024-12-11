@@ -1,0 +1,119 @@
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Gestión de Salones</title>  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">  
+    <style>  
+        .card {  
+            margin-bottom: 1rem;  
+            transition: all 0.3s ease;  
+        }  
+        .card:hover {  
+            transform: translateY(-2px);  
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);  
+        }  
+        .btn-group {  
+            gap: 0.5rem;  
+        }  
+        .form-group label {  
+            font-weight: 500;  
+        }  
+        .modal-header {  
+            background-color: #f8f9fa;  
+            border-bottom: 2px solid #dee2e6;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">  
+        <a class="navbar-brand" href="conferences.html">Sistema de Conferencias</a>  
+        <div class="collapse navbar-collapse">  
+            <ul class="navbar-nav mr-auto">  
+                <li class="nav-item">  
+                    <a class="nav-link" href="conferences.html">Conferencias</a>  
+                </li>  
+                <li class="nav-item">  
+                    <a class="nav-link" href="places.html">Salones</a>  
+                </li>  
+            </ul>  
+            <button class="btn btn-outline-danger my-2 my-sm-0" id="logout">  
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión  
+            </button>  
+        </div>  
+    </nav>  
+  
+    <div class="container mt-5">  
+        <div class="card">  
+            <div class="card-body">  
+                <h2 class="card-title">Nuevo Salón</h2>  
+                <form id="placeForm">  
+                    <div class="form-group">  
+                        <label for="NamePlace">Nombre del Salón:</label>  
+                        <input type="text" class="form-control" id="NamePlace" required minlength="3">  
+                    </div>  
+                    <div class="form-group">  
+                        <label for="Floor">Piso:</label>  
+                        <input type="number" class="form-control" id="Floor" required>  
+                    </div>  
+                    <button type="submit" class="btn btn-primary">  
+                        <i class="fas fa-plus"></i> Crear Salón  
+                    </button>  
+                </form>  
+            </div>  
+        </div>  
+  
+        <div class="card mt-4">  
+            <div class="card-body">  
+                <h2 class="card-title">Lista de Salones</h2>  
+                <div id="placeList" class="place-list"></div>  
+            </div>  
+        </div>  
+    </div>  
+  
+    <!-- Modal de Edición -->  
+    <div class="modal fade" id="editPlaceModal" tabindex="-1" role="dialog" aria-labelledby="editPlaceModalLabel" aria-hidden="true">  
+        <div class="modal-dialog" role="document">  
+            <div class="modal-content">  
+                <div class="modal-header">  
+                    <h5 class="modal-title" id="editPlaceModalLabel">  
+                        <i class="fas fa-edit"></i> Editar Salón  
+                    </h5>  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+                        <span aria-hidden="true">&times;</span>  
+                    </button>  
+                </div>  
+                <div class="modal-body">  
+                    <form id="editPlaceForm">  
+                        <input type="hidden" id="editPlaceId">  
+                        <div class="form-group">  
+                            <label for="editNamePlace">Nombre del Salón:</label>  
+                            <input type="text" class="form-control" id="editNamePlace" required minlength="3">  
+                        </div>  
+                        <div class="form-group">  
+                            <label for="editFloor">Piso:</label>  
+                            <input type="number" class="form-control" id="editFloor" required>  
+                        </div>  
+                        <div class="modal-footer px-0 pb-0">  
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">  
+                                <i class="fas fa-times"></i> Cancelar  
+                            </button>  
+                            <button type="submit" class="btn btn-primary">  
+                                <i class="fas fa-save"></i> Guardar cambios  
+                            </button>  
+                        </div>  
+                    </form>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>  
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
+    <script src="js/utils.js"></script>  
+    <script src="js/places.js"></script>  
+</body>  
+</html>

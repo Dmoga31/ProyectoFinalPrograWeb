@@ -19,19 +19,16 @@ class PlaceClass {
         }
     }
 
-    // Obtener un lugar por el nombre
-    // Obtener un lugar por su nombre
-static async getPlaceByName(req, res) {
-    try {
-        const place = await PlaceClass.getPlaceByName(req.params.name);
-        if (!place) {
-            return res.status(404).json({ message: 'Place not found' });
-        }
-        res.status(200).json(place);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}
+// En PlaceClass  
+static async getPlaceByName(name) {  
+        try {  
+            return await Place.findOne({   
+                NamePlace: { $regex: new RegExp(name, 'i') }   
+            });  
+        } catch (error) {  
+            throw new Error(error.message);  
+        }  
+    } 
 
     // Crear un nuevo lugar
     static async createPlace(data) {

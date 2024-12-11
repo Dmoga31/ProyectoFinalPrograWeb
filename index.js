@@ -1,8 +1,11 @@
 require('dotenv').config(); // Esto carga las variables de entorno desde el archivo .env
 
 const express = require('express');
+var cors = require('cors')
+
 const mongoose = require( 'mongoose');
 const app = express();
+app.use(cors())
 const userRoutes = require('./routes/user.route.js');
 const conferenceRoutes = require('./routes/conference.route.js');
 const placeRoutes = require('./routes/place.route.js');
