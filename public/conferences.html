@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conferencias</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .card {
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-group {
+            gap: 0.5rem;
+        }
+        .form-group label {
+            font-weight: 500;
+        }
+        .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="conferences.html">Sistema de Conferencias</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="conferences.html">Conferencias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="places.html">Salones</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-danger my-2 my-sm-0" id="logout">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Nueva Conferencia</h2>
+                <form id="conferenceForm">
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" class="form-control" id="name" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label for="place">Lugar:</label>
+                        <select class="form-control" id="place" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Fecha:</label>
+                        <input type="date" class="form-control" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startHour">Hora de inicio:</label>
+                        <input type="time" class="form-control" id="startHour" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endHour">Hora de fin:</label>
+                        <input type="time" class="form-control" id="endHour" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Crear Conferencia
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2 class="card-title">Mis Conferencias</h2>
+                <div id="conferenceList" class="conference-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div class="modal fade" id="editConferenceModal" tabindex="-1" role="dialog" aria-labelledby="editConferenceModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editConferenceModalLabel">
+                        <i class="fas fa-edit"></i> Editar Conferencia
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editConferenceForm">
+                    <input type="hidden" id="editConferenceId">  
+                        <div class="form-group">
+                            <label for="editName">Nombre:</label>
+                            <input type="text" class="form-control" id="editName" required minlength="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPlace">Lugar:</label>
+                            <select class="form-control" id="editPlace" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDate">Fecha:</label>
+                            <input type="date" class="form-control" id="editDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editStartHour">Hora de inicio:</label>
+                            <input type="time" class="form-control" id="editStartHour" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editEndHour">Hora de fin:</label>
+                            <input type="time" class="form-control" id="editEndHour" required>
+                        </div>
+                        <div class="modal-footer px-0 pb-0">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Guardar cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/conferences.js"></script>
+</body>
+</html>
+<script>  
+
+    </script>  

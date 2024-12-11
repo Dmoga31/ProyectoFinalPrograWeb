@@ -34,57 +34,69 @@ class ConferenceController {
     }
     
 
-    static async createConference(req, res) {
-        try {
-            const { Name, Place, Date, StartHour, EndHour } = req.body;
-            
-            // Intentar buscar el lugar primero por nombre
-            let place = await PlaceClass.getPlaceById(Place); // Aquí buscamos por ID
+ // controllers/conference.controller.js  
 
-            console.log(place)
+static async createConference(req, res) {  
+        try {  
+            const { Name, Place, Date, StartHour, EndHour } = req.body;  
     
-            if (!place) {
-                return res.status(404).json({ message: 'Place not found' });
-            }
+            // Intentar buscar el lugar primero por nombre  
+            let place = await PlaceClass.getPlaceById(Place);  
     
-            // Crear la conferencia
-            const conference = await ConferenceClass.createConference({
-                Name,
-                Place: place._id,  // Usamos el ID del lugar encontrado
-                Date,
-                StartHour,
-                EndHour,
-                CreatedBy: req.user._id
-            });
+            if (!place) {  
+                return res.status(404).json({ message: 'Lugar no encontrado' });  
+            }  
     
-            // Enviar la respuesta con la conferencia creada
-            res.status(201).json(conference);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    }
+            // Crear la conferencia  
+            const conference = await ConferenceClass.createConference({  
+                Name,  
+                Place: place._id,  
+                Date,  
+                StartHour,  
+                EndHour,  
+                CreatedBy: req.user._id  
+            });  
     
-
-    static async updateConference(req, res) {
-        try {
-            const { id } = req.params;
-            const data = req.body;
-            const userId = req.user._id;
-            const isAdmin = req.user.IsAdmin; // Indicador de si es administrador
     
-            // Actualizar la conferencia
-            const conference = await ConferenceClass.updateConference(id, data, userId, isAdmin);
+            res.status(201).json(conference);  
+        } catch (error) {  
+            // Manejar específicamente el error de disponibilidad  
+            if (error.message.includes('sala ya está reservada')) {  
+                return res.status(409).json({ message: error.message });  
+            }  
+            res.status(500).json({ message: error.message });  
+        }  
+    }  
     
-            if (!conference) {
-                return res.status(404).json({ message: 'Conference not found or not authorized' });
-            }
+    static async updateConference(req, res) {  
+        try {  
+            const { id } = req.params;  
+            const data = req.body;  
+            const userId = req.user._id;  
+            const isAdmin = req.user.IsAdmin;  
     
-            res.status(200).json(conference);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    }
+            // Validaciones básicas  
+            if (data.Name && data.Name.trim().length === 0) {  
+                return res.status(400).json({ message: 'Conference name cannot be empty' });  
+            }  
     
+            // Actualizar la conferencia  
+            const conference = await ConferenceClass.updateConference(id, data, userId, isAdmin);  
+    
+            if (!conference) {  
+                return res.status(404).json({   
+                    message: 'Conference not found or you do not have permission to edit it'   
+                });  
+            }  
+    
+            res.status(200).json({  
+                message: 'Conference updated successfully',  
+                conference  
+            });  
+        } catch (error) {  
+            res.status(500).json({ message: error.message });  
+        }  
+    }   
 
     static async deleteConference(req, res) {
         try {

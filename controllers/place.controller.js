@@ -25,14 +25,17 @@ class PlaceController {
         }
     }
 
-    // Obtener un lugar por su nombre
-    /* static async getPlaceByName(name) {
-        try {
-            return await Place.findOne({ NamePlace: name }); // Busca el primer lugar con el nombre dado
-        } catch (error) {
-            throw new Error(error.message);
-        }
-    } */
+static async getPlaceByName(req, res) {  
+        try {  
+            const place = await PlaceClass.getPlaceByName(req.params.name);  
+            if (!place) {  
+                return res.status(404).json({ message: 'Place not found' });  
+            }  
+            res.status(200).json(place);  
+        } catch (error) {  
+            res.status(500).json({ message: error.message });  
+        }  
+    }  
 
     // Crear un nuevo lugar
     static async createPlace(req, res) {

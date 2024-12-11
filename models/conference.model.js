@@ -24,16 +24,16 @@ const ConferenceSchema = new mongoose.Schema(
     StartHour: {
       type: String,
       required: [true, "La hora de inicio es obligatoria"],
-      validate: {
-        validator: (value) => /^([01]\d|2[0-3]):([0-5]\d)$/.test(value),
+          validate: {  
+                    validator: (value) => /^([01]\d|2[0-3]):([0-5]\d)$/.test(value), 
         message: "La hora de inicio debe tener el formato HH:mm",
       },
     },
     EndHour: {
       type: String,
       required: [true, "La hora de finalización es obligatoria"],
-      validate: {
-        validator: (value) => /^([01]\d|2[0-3]):([0-5]\d)$/.test(value),
+      validate: {  
+                    validator: (value) => /^([01]\d|2[0-3]):([0-5]\d)$/.test(value),  
         message: "La hora de finalización debe tener el formato HH:mm",
       },
     },

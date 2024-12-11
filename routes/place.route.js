@@ -22,4 +22,7 @@ router.put('/:id',verifyToken, verifyAdmin, PlaceController.updatePlace);
 // Eliminar un lugar
 router.delete('/:id',verifyToken, verifyAdmin, PlaceController.deletePlace);
 
+router.get('/name/:name', verifyToken, verifyAdmin, PlaceController.getPlaceByName);  
+
+
 module.exports = router;
