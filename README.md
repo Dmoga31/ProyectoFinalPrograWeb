@@ -42,7 +42,19 @@ Este proyecto es un sistema de gestión de conferencias que permite a los usuari
 
 - **Lugares**:  
   - Crear, listar, actualizar y eliminar lugares (solo administradores).
- 
+
+## Diagrama de Arquitectura
+![image](https://github.com/user-attachments/assets/9d8494ef-b117-471f-874b-fc8d1613aac7)
+
+- **Frontend**:
+  - Interfaz de usuario para el inicio de sesión, registro, conferencias y lugares.
+  - JavaScript que maneja la lógica del cliente.
+- **Backend**:
+  - Controladores que manejan la lógica de negocio para usuarios, conferencias y lugares.
+  - Rutas que definen las API para manejar las solicitudes del frontend.
+- **Base de Datos**:
+  - MongoDB que almacena las colecciones de usuarios, conferencias y lugares.
+
 
 ## Diagrama de Clases
 ![image](https://github.com/user-attachments/assets/6953a502-b1c5-4f9a-91f7-4b0953194071)
